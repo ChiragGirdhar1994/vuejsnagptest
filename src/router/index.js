@@ -16,7 +16,7 @@ const routes = [
       import(/* webpackChunkName: "bundle.heroes" */ '../views/Home.vue'),
   },
   {
-    path: '/home/:taskid ',
+    path: '/task/:id ',
     name: 'task',
     // props: true,
     props: parseProps,

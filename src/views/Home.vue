@@ -15,6 +15,9 @@
             <td>{{ task.name }}</td>
             <td>{{ task.state }}</td>
             <td>{{ task.deadLine }}</td>
+            <td>
+              <button v-on:click="taskDetails(task)">Task Details</button>
+            </td>
           </tr>
         </table>
       </div>
@@ -22,16 +25,16 @@
         <form id="home">
           <p>Task Name is: {{ task.name }}</p>
           <input v-model="task.name" placeholder="task name" />
-          <br >
+          <br />
           <span>Task state is:</span>
           <input type="checkbox" id="checkbox" v-model="task.state" />
           <label for="checkbox">{{ task.state }}</label>
-          <br >
+          <br />
           <span>Task description is:</span>
           <p style="white-space: pre-line;">{{ task.description }}</p>
           <br />
           <textarea v-model="task.description" placeholder="add description"></textarea>
-          <br >
+          <br />
           <button v-on:click="addTask">Add Task</button>
         </form>
       </div>
@@ -44,7 +47,7 @@ export default {
   name: "Home",
   data() {
     return {
-      task:{ id: null, name: "", state: "", deadLine: "", "description": "" },
+      task: { id: null, name: "", state: "", deadLine: "", description: "" },
       task_list: [
         { id: 1, name: "Test1", state: "Complete", deadLine: "23-09-2020" },
         { id: 2, name: "Test2", state: "Incomplete", deadLine: "23-09-2020" },
@@ -53,13 +56,15 @@ export default {
     };
   },
   methods: {
-   addTask: function (event) {
-     if(event)
-     {
-       this.task.id = this.task_list.length;
-       this.task_list.push(this.task);
-     }
-    } 
+    addTask: function(event) {
+      if (event) {
+        this.task.id = this.task_list.length;
+        this.task_list.push(this.task);
+      }
+    },
+    taskDetails: function(task) {
+      this.$router.push({ name: 'task', params: { id: task.id, data:task } });
+    }
   }
 };
 </script>

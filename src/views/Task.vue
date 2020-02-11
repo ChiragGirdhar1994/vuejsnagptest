@@ -1,49 +1,36 @@
 <template>
   <div class="content-container">
     <div class="section content-title-group">
-      <h2 class="title">Home</h2>
+      <h2 class="title">Task Details</h2>
     </div>
-    <div class="columns">
-      <div class="column is-8">
-        <table>
-          <tr>
-            <th>Task</th>
-            <th>Task State</th>
-            <th>Deadline</th>
-          </tr>
-          <tr v-for="task in task_list" :key="task.id">
-            <td>{{ task.name }}</td>
-            <td>{{ task.state }}</td>
-            <td>{{ task.deadLine }}</td>
-          </tr>
-        </table>
-      </div>
       <div class="column is-8">
         <form id="home">
-          <input v-model="taskName" placeholder="task name" />
-          <p>Task Name is: {{ taskName }}</p>
-          <input type="checkbox" id="checkbox" v-model="state" />
-          <label for="checkbox">{{ state }}</label>
+          <input v-model="task.name" placeholder="task name" />
+          <p>Task Name is: {{ task.name }}</p>
+          <input type="checkbox" id="checkbox" v-model="task.state" />
+          <label for="checkbox">{{ task.state }}</label>
+          <br >
           <span>Task description is:</span>
-          <p style="white-space: pre-line;">{{ description }}</p>
+          <p style="white-space: pre-line;">{{ task.description }}</p>
           <br />
-          <textarea v-model="description" placeholder="add multiple lines"></textarea>
+          <textarea v-model="task.description" placeholder="update description"></textarea>
+          <br >
+          <button v-on:click="updateTask">Update Task</button>
         </form>
       </div>
     </div>
-  </div>
 </template>
 
 <script>
 export default {
   name: "Task",
+   created() {
+    this.baseaccount = this.$router.params.baseaccount;
+  },
   data() {
     return {
-      task_list: [
-        { id: 1, name: "Test1", state: "Complete", deadLine: "23-09-2020" },
-        { id: 2, name: "Test2", state: "Incomplete", deadLine: "23-09-2020" },
-        { id: 3, name: "Test3", state: "Complete", deadLine: "23-09-2020" }
-      ]
+        task:{ id: this.$route.params.id, name: this.$route.params.data.name, state: this.$route.params.data.state
+        , deadLine: this.$route.params.data.deadLine, "description": this.$route.params.data.name.description },
     };
   },
   methods: {}
